@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détection d'Objets avec TensorFlow.js</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Détection d'Objets (Clavier, Serveur, Switch, Routeur)</h1>
+    
+    <div id="question">Question : Trouvez un objet spécifique.</div>
+    
+    <video id="video" autoplay></video>
+    <button id="capture">Capturer</button>
+    <button id="new-question">Nouvelle Question</button>
+    <div id="result">Résultat : En attente...</div>
+    <div id="loading">Chargement du modèle...</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    
+</body>
+</html>

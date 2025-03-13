@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Tapez votre message..." />
+        <button onclick="sendMessage()">Envoyer</button>
+    </div>
+
+    <script>
+        async function sendMessage() {
+    const userInput = document.getElementById('user-input').value;
+    if (!userInput) return;
+
+    // Afficher le message de l'utilisateur dans la boîte de chat
+    const chatBox = document.getElementById('chat-box');
+    chatBox.innerHTML += `<div class="user-message">${userInput}</div>`;
+    document.getElementById('user-input').value = ''; // Réinitialiser le champ de texte
+
+    // Envoyer la requête POST au back-end Flask
+    const response = await fetch('/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: userInput })
+    });
+
+    const data = await response.json();
+    console.log(data);  // Déboguer la réponse dans la console
+
+    // Afficher la réponse du chatbot
+    if (data.response) {
+        chatBox.innerHTML += `<div class="bot-message">${data.response}</div>`;
+    } else {
+        chatBox.innerHTML += `<div class="error-message">Erreur: ${data.error}</div>`;
+    }
+
+    // Faire défiler la boîte de chat vers le bas pour voir la nouvelle réponse
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+    </script>
+</body>
+</html>
